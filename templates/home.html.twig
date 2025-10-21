@@ -4,6 +4,8 @@
 
 {% block body %}
 
+<div data-controller="hello"></div>
+<div {{ stimulus_controller('counter') }}></div>
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
     <div class="col-md-6 px-0">
@@ -12,12 +14,18 @@
       <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
     </div>
   </div>
+<div data-controller="clipboard" data-clipboard-success-content-value="Copied!">
+  <input type="text" value="Click the button to copy me!" data-clipboard-target="source" />
 
+  <button type="button" data-action="clipboard#copy" data-clipboard-target="button">Copy to clipboard</button>
+</div>
+<div {{ stimulus_controller('counter') }}></div>
   <div class="row mb-2">
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary">World</strong>
+          <div data-controller="hello"></div>
           <h3 class="mb-0">Featured post</h3>
           <div class="mb-1 text-muted">Nov 12</div>
           <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
