@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     {
         $teste = 'asd[dfdf]dkfd[kdfk]';
         $novaString = $stringManipulation->cleanString($teste);
-
+        
         $response = $httpClient->request('GET','https://viacep.com.br/ws/71919540/json/');
         //$slug = "isso-é-um-teste-string";
         //dd($stringManipulation->removeHifem($slug));

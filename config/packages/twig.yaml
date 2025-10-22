@@ -1,5 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        principal_logo: '%images_directory_logo%/cache.logo'
 
 when@test:
     twig:
