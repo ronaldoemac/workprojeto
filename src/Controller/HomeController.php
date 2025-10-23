@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class HomeController extends AbstractController
 {
     #[Route('/',name: 'app_home')]
-    public function home(
+    public function new(
         LoggerInterface $logger, 
         StringManipulationService $stringManipulation, 
         NewsService $service, 

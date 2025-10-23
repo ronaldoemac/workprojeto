@@ -10,13 +10,15 @@ class NewsService
 {
     public function __construct(
         private HttpClientInterface $httpClient,
-        private CacheInterface $cache
+        private CacheInterface $cache,
+        private bool $isDebug,
     ) {}
 
     public function getCategoryList()
     {
+        //dd($this->isDebug);
         $categories = $this->cache->get('news_category', function (CacheItemInterface $cacheItem) {
-            $cacheItem->expiresAfter(60);
+            $cacheItem->expiresAfter($this->isDebug ? 5 : 60);
             $url = "https://raw.githubusercontent.com/JonasPoli/array-news/refs/heads/main/arrayCategoryNews.json";
             $html = $this->httpClient->request('GET', $url);
             $categories = $html->toArray();
@@ -30,7 +32,7 @@ class NewsService
     public function getNewsList()
     {
         $news = $this->cache->get('news', function (CacheItemInterface $cacheItem) {
-            $cacheItem->expiresAfter(60);
+            $cacheItem->expiresAfter($this->isDebug ? 5 : 60);
             $url = "https://raw.githubusercontent.com/JonasPoli/array-news/refs/heads/main/arrayNews.json";
             $html = $this->httpClient->request('GET', $url);
             $news = $html->toArray();
