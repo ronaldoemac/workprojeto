@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,5 +24,18 @@ class NewsController extends AbstractController
             "imagem" => "https://exemplo.com/imagem/arte.jpg",
         ];
         return new JsonResponse($new);
+    }
+
+    #[Route('/newss/new', 'nova_rota')]
+    public function new(EntityManagerInterface $entityManager): Response
+    {
+        $rand = rand(18,38);
+        $news = new News();
+        $news->setTitle('Jovem de '.$rand .' anos recebe um prêmio');
+        $news->setDescription('Um jovem brasileiro de '.$rand .' anos recebeu um prêmio na Suécia');
+        $entityManager->persist($news);
+        $entityManager->flush();
+        
+        return new Response('<h1> Notícia Criada em: </h1>'.$news->getCreateAt()->format('d/m/y H:i:s'));
     }
 }
