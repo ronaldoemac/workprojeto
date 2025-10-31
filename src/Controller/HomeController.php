@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Service\NewsService;
 use App\Service\StringManipulationService;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,14 +41,16 @@ class HomeController extends AbstractController
     }
 
     #[Route('/categoria/{slug}',name: 'app_category')]
-    public function category(String|null $slug=null, NewsService $service): Response
+    public function category(String|null $slug=null, EntityManagerInterface $entityManager): Response
     {
-
+        $newsRepository = $entityManager->getRepository(News::class);
+        $news = $newsRepository->findAll();
         $pageTitle = $slug;
         return $this->render('category.html.twig', [
-            'categories' => $service->getCategoryList(),
+            //'categories' => $service->getCategoryList(),
             'pageTitle' => $pageTitle,
-            'news' => $service->getNewsList(),
+            //'news' => $service->getNewsList(),
+            'news' => $news,
         ]);
     }
 
